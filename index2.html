@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q-RI SOUND | 큐리사운드 공식 웹사이트</title>
+  <style>
+    :root {
+      --bg-card: rgba(255, 255, 255, 0.92);
+      --accent-gold: #C5A059;
+      --accent-gold-light: #E5C158;
+      --text-main: #1D1D1F;
+      --text-sub: #6E6E73;
+      --border-color: rgba(197, 160, 89, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background: url('MainBG.jpg') no-repeat center top;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 50px;
+      background: rgba(248, 245, 240, 0.85);
+      backdrop-filter: blur(16px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: var(--text-main);
+    }
+    .logo span { color: var(--accent-gold); }
+
+    /* HERO SECTION */
+    .hero {
+      min-height: 55vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 160px 20px 40px;
+    }
+
+    .brand-hero-title {
+      font-size: 5.2rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #FFF6D6 0%, #F3A83B 50%, #E87C1E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 25px rgba(243, 168, 59, 0.45));
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      letter-spacing: 6px;
+      color: var(--accent-gold);
+      margin-bottom: 75px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .hero-title-wrapper {
+      min-height: 140px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      max-width: 1250px;
+      position: relative;
+      word-break: keep-all;
+      word-wrap: break-word;
+    }
+
+    .char {
+      display: inline-block;
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      opacity: 0;
+      filter: blur(16px);
+      transform: translateY(10px) scale(0.96);
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      background: linear-gradient(135deg, #1D1D1F 0%, #C5A059 50%, #1D1D1F 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      word-break: keep-all;
+    }
+
+    .space { display: inline-block; width: 0.4em; }
+
+    .char.visible {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0) scale(1);
+    }
+
+    .char.wave-dissolve {
+      opacity: 0;
+      filter: blur(14px);
+      transform: translateY(-12px) scale(1.08) skewX(-12deg);
+      transition: opacity 0.45s ease, filter 0.45s ease, transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* 풀스크린 화보 슬라이더 */
+    .artist-editorial-section {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      margin: 40px 0 100px 0;
+      background: #000;
+    }
+
+    .editorial-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      padding: 0 90px;
+    }
+
+    .editorial-slide.active { opacity: 1; }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center 30%;
+      z-index: 1;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.75) 100%);
+      z-index: 2;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 3;
+      color: #FFFFFF;
+      max-width: 850px;
+      margin-top: 140px;
+    }
+
+    .slide-badge {
+      display: inline-block;
+      padding: 8px 22px;
+      background: rgba(197, 160, 89, 0.4);
+      border: 1px solid var(--accent-gold-light);
+      backdrop-filter: blur(12px);
+      border-radius: 30px;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: #FFFDF9;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .slide-name-wrapper {
+      margin-bottom: 20px;
+    }
+
+    .slide-name {
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: #FFFFFF;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+      margin-bottom: 6px;
+    }
+
+    .slide-english-name {
+      font-size: 20px;
+      color: var(--accent-gold-light);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .slide-desc {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
+      line-height: 1.6;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      word-break: keep-all;
+      max-width: 700px;
+    }
+
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #FFFFFF;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    .slider-arrow:hover {
+      background: rgba(197, 160, 89, 0.85);
+      border-color: var(--accent-gold-light);
+      box-shadow: 0 0 25px rgba(229, 193, 88, 0.6);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .slider-arrow.prev { left: 25px; }
+    .slider-arrow.next { right: 25px; }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding-top: 120px;
+      }
+      .brand-hero-title {
+        font-size: 3.2rem;
+      }
+      .hero-subtitle {
+        margin-bottom: 45px;
+      }
+      .char {
+        font-size: 28px;
+      }
+      .editorial-slide { padding: 0 15px; }
+      
+      .slider-arrow { width: 36px; height: 36px; font-size: 14px; }
+      .slider-arrow.prev { left: 6px; }
+      .slider-arrow.next { right: 6px; }
+
+      .slide-content {
+        position: absolute;
+        bottom: 85px;
+        left: 20px;   
+        right: 20px;
+        margin-top: 0;
+        padding: 0;
+        text-align: left;
+      }
+
+      .slide-name-wrapper {
+        position: absolute;
+        top: -420px; 
+        left: 20px;  
+        right: auto;
+        margin-bottom: 0;
+        text-align: left;
+      }
+
+      .slide-name {
+        font-size: 24px; 
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 2px;
+      }
+
+      .slide-english-name {
+        font-size: 12px; 
+        white-space: nowrap;
+      }
+
+      .slide-badge {
+        font-size: 11px;
+        padding: 5px 12px;
+        margin-bottom: 8px;
+        letter-spacing: 2px;
+      }
+
+      .slide-desc {
+        font-size: 13px;
+        line-height: 1.4;
+      }
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: 120px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 80px;
+      letter-spacing: 3px;
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .artist-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    @media (max-width: 992px) {
+      .artist-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 650px) {
+      .artist-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 28px; margin-bottom: 50px; }
+    }
+
+    /* 래퍼: 자율 둥둥 상하 모션 */
+    .artist-card-wrapper {
+      width: 290px;
+      height: 390px;
+      perspective: 1000px;
+      animation: floatWrapper 4s ease-in-out infinite alternate;
+    }
+
+    .artist-card-wrapper:nth-child(1) { animation-delay: 0.0s; animation-duration: 3.8s; }
+    .artist-card-wrapper:nth-child(2) { animation-delay: -1.2s; animation-duration: 4.2s; }
+    .artist-card-wrapper:nth-child(3) { animation-delay: -2.4s; animation-duration: 3.9s; }
+    .artist-card-wrapper:nth-child(4) { animation-delay: -0.8s; animation-duration: 4.4s; }
+    .artist-card-wrapper:nth-child(5) { animation-delay: -1.8s; animation-duration: 3.7s; }
+    .artist-card-wrapper:nth-child(6) { animation-delay: -2.8s; animation-duration: 4.1s; }
+    .artist-card-wrapper:nth-child(7) { animation-delay: -0.5s; animation-duration: 4.3s; }
+    .artist-card-wrapper:nth-child(8) { animation-delay: -1.5s; animation-duration: 3.6s; }
+    .artist-card-wrapper:nth-child(9) { animation-delay: -2.2s; animation-duration: 4.0s; }
+
+    @keyframes floatWrapper {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-12px); }
+    }
+
+    /* 실제 계란 카드 */
+    .artist-card-oval {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: none;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      padding: 40px 20px;
+      transform-style: preserve-3d;
+      will-change: transform, box-shadow;
+      
+      /* 평소: 원본의 딱 좋은 하얀 전구빛 호흡 */
+      animation: whiteBulbGlow 2.0s ease-in-out infinite alternate;
+      transition: box-shadow 0.35s ease, transform 0.1s ease-out;
+    }
+
+    .artist-card-wrapper:nth-child(1) .artist-card-oval { animation-delay: 0.0s; }
+    .artist-card-wrapper:nth-child(2) .artist-card-oval { animation-delay: -0.5s; }
+    .artist-card-wrapper:nth-child(3) .artist-card-oval { animation-delay: -1.0s; }
+    .artist-card-wrapper:nth-child(4) .artist-card-oval { animation-delay: -0.3s; }
+    .artist-card-wrapper:nth-child(5) .artist-card-oval { animation-delay: -0.8s; }
+    .artist-card-wrapper:nth-child(6) .artist-card-oval { animation-delay: -1.3s; }
+    .artist-card-wrapper:nth-child(7) .artist-card-oval { animation-delay: -0.2s; }
+    .artist-card-wrapper:nth-child(8) .artist-card-oval { animation-delay: -0.7s; }
+    .artist-card-wrapper:nth-child(9) .artist-card-oval { animation-delay: -1.1s; }
+
+    /* 평소 하얀 전구빛 발광 (원래 원복) */
+    @keyframes whiteBulbGlow {
+      0% {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05),
+                    0 0 12px rgba(255, 255, 255, 0.4),
+                    inset 0 0 10px rgba(255, 255, 255, 0.6);
+      }
+      100% {
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.09),
+                    0 0 45px rgba(255, 255, 255, 1),
+                    0 0 75px rgba(255, 255, 255, 0.8),
+                    inset 0 0 35px rgba(255, 255, 255, 1);
+      }
+    }
+
+    /* 마우스 호버 시 아이보리-크림 자발광 오라만 배경 위에서 명확하게 발산 */
+    .artist-card-oval:hover {
+      animation-play-state: paused;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.16),
+                  0 0 35px rgba(255, 255, 255, 1),             /* 중심부 백색 광채 */
+                  0 0 80px rgba(255, 248, 230, 0.95),          /* 메인 아이보리 오라 */
+                  0 0 130px rgba(245, 225, 185, 0.7),          /* 외각 크림 퍼짐 */
+                  inset 0 0 45px rgba(255, 255, 255, 1) !important;
+    }
+
+    .artist-thumb {
+      width: 145px;
+      height: 145px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 16px auto;
+      border: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.35s ease;
+      pointer-events: none;
+    }
+
+    .artist-card-oval:hover .artist-thumb {
+      transform: scale(1.06);
+    }
+
+    .artist-card-text {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .artist-name {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .artist-role {
+      font-size: 14px;
+      color: var(--accent-gold);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      line-height: 1.3;
+    }
+
+    .audio-player-section {
+      max-width: 900px;
+      margin: 80px auto 40px auto;
+      padding: 30px 40px;
+      background: #1D1D1F;
+      border-radius: 24px;
+      border: 1px solid var(--border-color);
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .player-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .player-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent-gold-light);
+    }
+
+    .player-track-info {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .audio-player-section audio {
+      width: 100%;
+      accent-color: var(--accent-gold);
+    }
+
+    footer {
+      text-align: center;
+      padding: 50px 20px 80px 20px;
+      color: var(--text-sub);
+      font-size: 14px;
+      border-top: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Q-RI <span>SOUND</span></div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 class="brand-hero-title">Q-RI SOUND</h1>
+      <div class="hero-subtitle">GLOBAL VOCAL ENTERTAINMENT</div>
+      <div class="hero-title-wrapper" id="titleWrapper"></div>
+    </section>
+
+    <!-- 5인 화보 풀스크린 슬라이더 -->
+    <section class="artist-editorial-section">
+      <div class="slider-arrow prev" id="prevBtn">&#10094;</div>
+      
+      <!-- 1. 이도화 -->
+      <div class="editorial-slide active">
+        <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-name-wrapper">
+            <h2 class="slide-name">이도화</h2>
+            <div class="slide-english-name">Lee Do-hwa</div>
+          </div>
+          <span class="slide-badge">LEEDO-HWA / LEAD VOCAL</span>
+          <p class="slide-desc">대중성과 깊은 감성을 포괄하는 독보적 가창력. '독보청천'으로 펼쳐내는 큐리사운드의 메인 보컬 아티스트.</p>
+        </div>
+      </div>
+
+      <!-- 2. 보화연 -->
+      <div class="editorial-slide">
+        <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-name-wrapper">
+            <h2 class="slide-name">보화연</h2>
+            <div class="slide-english-name">Bo Hwa-yeon</div>
+          </div>
+          <span class="slide-badge">BOHWA-YEON / K-ETHNIC CROSSOVER</span>
+          <p class="slide-desc">국악 트롯과 정통 소리의 현대적 재해석. 동양의 울림을 세계로 확장하는 퓨전 보컬 리더.</p>
+        </div>
+      </div>
+
+      <!-- 3. 화수분 -->
+      <div class="editorial-slide">
+        <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-name-wrapper">
+            <h2 class="slide-name">화수분</h2>
+            <div class="slide-english-name">Hwasubun</div>
+          </div>
+          <span class="slide-badge">HWASUBUN / HEALING & FOLK VOICE</span>
+          <p class="slide-desc">지친 영혼을 맑게 씻어내는 포크 발라드의 거장. 끊임없이 보물을 배출하는 기적의 사운드.</p>
+        </div>
+      </div>
+
+      <!-- 4. 루핀 -->
+      <div class="editorial-slide">
+        <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-name-wrapper">
+            <h2 class="slide-name">루핀</h2>
+            <div class="slide-english-name">Lupin</div>
+          </div>
+          <span class="slide-badge">LUPIN / SYNTH & MELODY</span>
+          <p class="slide-desc">감각적인 리듬감과 현대적인 감성을 이끄는 트렌디 보컬 프로듀서.</p>
+        </div>
+      </div>
+
+      <!-- 5. 놀라 -->
+      <div class="editorial-slide">
+        <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-name-wrapper">
+            <h2 class="slide-name">놀라</h2>
+            <div class="slide-english-name">Nola</div>
+          </div>
+          <span class="slide-badge">NOLA / RHYTHM & BEAT</span>
+          <p class="slide-desc">파워풀한 에너지와 강렬한 보컬 퍼포먼스로 무대를 사로잡는 신성 아티스트.</p>
+        </div>
+      </div>
+
+      <div class="slider-arrow next" id="nextBtn">&#10095;</div>
+    </section>
+
+    <!-- 섹션 타이틀: Our Artists -->
+    <section class="section">
+      <div class="section-title">Our Artists</div>
+      <div class="artist-grid">
+        
+        <div class="artist-card-wrapper">
+          <div class="artist-card-oval">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="이도화" class="artist-thumb">
+            <div class="artist-card-text">
+              <div class="artist-name">이도화</div>
+              <div class="artist-role">Lead Vocal</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="artist-card-wrapper">
+          <div class="artist-card-oval">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" alt="보화연" class="artist-thumb">
+            <div class="artist-card-text">
+              <div class="artist-name">보화연</div>
+              <div class="artist-role">Acoustic Producer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="artist-card-wrapper">
+          <div class="artist-card-oval">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" alt="화수분" class="artist-thumb">
+            <div class="artist-card-text">
+              <div class="artist-name">화수분</div>
+              <div class="artist-role">Healing Master</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="artist-card-wrapper">
+          <div class="artist-card-oval">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80" alt="루핀" class="artist-thumb">
+            <div class="artist-card-text">
+              <div class="artist-name">루핀</div>
+              <div class="artist-role">Synth & Melody</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="artist-card-wrapper">
+          <div class="artist-card-oval">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80" alt="놀라" class="artist-thumb">
+            <div class="artist-card-text">
+              <div class="artist-name">놀라</div>
+              <div class="artist-role">Rhythm & Beat</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="artist-card-wrapper">
+          <div class="artist-card-oval">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80" alt="우화선" class="artist-thumb">
+            <div class="artist-card-text">
+              <div class="artist-name">우화선</div>
+              <div class="artist-role">Ambient Sound</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="artist-card-wrapper">
+          <div class="artist-card-oval">
+            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" alt="나정이" class="artist-thumb">
+            <div class="artist-card-text">
+              <div class="artist-name">나정이</div>
+              <div class="artist-role">Lyricist</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="artist-card-wrapper">
+          <div class="artist-card-oval">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80" alt="도향" class="artist-thumb">
+            <div class="artist-card-text">
+              <div class="artist-name">도향</div>
+              <div class="artist-role">Acoustic Guitarnist</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="artist-card-wrapper">
+          <div class="artist-card-oval">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80" alt="도솔미" class="artist-thumb">
+            <div class="artist-card-text">
+              <div class="artist-name">도솔미</div>
+              <div class="artist-role">Mastering Vocal</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 하단 음원 플레이어 섹션 -->
+    <section class="audio-player-section">
+      <div class="player-header">
+        <div class="player-title">Q-RI SOUND OFFICIAL STREAM</div>
+        <div class="player-track-info">Now Playing : 큐리사운드 대표 컬렉션 믹스</div>
+      </div>
+      <audio controls>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        브라우저가 오디오 태그를 지원하지 않습니다.
+      </audio>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2026 Q-RI SOUND. All Rights Reserved. Quantum Group.
+  </footer>
+
+  <script>
+    const phrases = [
+      "인류의 영혼을 밝히는 맑은 소리, 큐리사운드가 선보이는 빛의 서정시!",
+      "대중성과 독창성을 겸비한 글로벌 보컬 엔터테인먼트의 새로운 기준!"
+    ];
+
+    const wrapper = document.getElementById('titleWrapper');
+    let phraseIndex = 0;
+
+    function playSubtleWaveLoop() {
+      const currentPhrase = phrases[phraseIndex];
+      wrapper.innerHTML = '';
+      
+      const words = currentPhrase.split(' ');
+      const elements = [];
+
+      words.forEach((word, wIdx) => {
+        const wordContainer = document.createElement('span');
+        wordContainer.style.display = 'inline-block';
+        wordContainer.style.whiteSpace = 'nowrap';
+
+        for (let i = 0; i < word.length; i++) {
+          const charSpan = document.createElement('span');
+          charSpan.className = 'char';
+          charSpan.textContent = word.charAt(i);
+          wordContainer.appendChild(charSpan);
+          elements.push(charSpan);
+        }
+
+        wrapper.appendChild(wordContainer);
+
+        if (wIdx < words.length - 1) {
+          const spaceSpan = document.createElement('span');
+          spaceSpan.className = 'space';
+          wrapper.appendChild(spaceSpan);
+        }
+      });
+
+      elements.forEach((el, idx) => {
+        setTimeout(() => { el.classList.add('visible'); }, idx * 60);
+      });
+
+      const totalAppearTime = elements.length * 60 + 1600;
+      setTimeout(() => {
+        elements.forEach((el, idx) => {
+          setTimeout(() => {
+            el.classList.remove('visible');
+            el.classList.add('wave-dissolve');
+          }, idx * 25);
+        });
+
+        setTimeout(() => {
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          playSubtleWaveLoop();
+        }, elements.length * 25 + 400);
+      }, totalAppearTime);
+    }
+
+    const slides = document.querySelectorAll('.editorial-slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentSlide = 0;
+    let autoSlideInterval;
+
+    function goToSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (index + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        goToSlide(currentSlide + 1);
+      }, 5000);
+    }
+
+    function resetAutoSlide() {
+      clearInterval(autoSlideInterval);
+      startAutoSlide();
+    }
+
+    nextBtn.addEventListener('click', () => {
+      goToSlide(currentSlide + 1);
+      resetAutoSlide();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      goToSlide(currentSlide - 1);
+      resetAutoSlide();
+    });
+
+    /* 마우스 추적 3D 둥글둥글 기울임 모션 스크립트 */
+    const cards = document.querySelectorAll('.artist-card-oval');
+
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = -((y - centerY) / centerY) * 16;
+        const rotateY = ((x - centerX) / centerX) * 16;
+
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+      });
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      playSubtleWaveLoop();
+      startAutoSlide();
+    });
+  </script>
+</body>
+</html>

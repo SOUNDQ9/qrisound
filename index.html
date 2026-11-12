@@ -1,874 +1,1089 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Q-Ri Sound | Official Record Label</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            orange: '#FF7A00',
-                            orangeHover: '#E06B00',
-                            dark: '#0D0D0D',
-                            grayBg: '#F7F7F8',
-                            border: '#E5E5E5'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome & Google Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: #111111;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q-RI SOUND | 큐리사운드 공식 웹사이트</title>
+  <style>
+    :root {
+      --bg-card: rgba(255, 255, 255, 0.92);
+      --accent-gold: #C5A059;
+      --accent-gold-light: #E5C158;
+      --text-main: #1D1D1F;
+      --text-sub: #6E6E73;
+      --border-color: rgba(197, 160, 89, 0.15);
+    }
 
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
 
-        /* Carousel horizontal scroll snap */
-        .snap-carousel {
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-        }
-        .snap-item {
-            scroll-snap-align: start;
-        }
+    body {
+      background: url('MainBG.jpg') no-repeat center top;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
 
-        .logo-circle {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #000;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 14px;
-            letter-spacing: -0.5px;
-            text-align: center;
-            line-height: 1;
-            border: 2px solid #000;
-        }
-    </style>
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 50px;
+      background: rgba(248, 245, 240, 0.85);
+      backdrop-filter: blur(16px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: var(--text-main);
+    }
+    .logo span { color: var(--accent-gold); }
+
+    /* HERO SECTION */
+    .hero {
+      min-height: 55vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 160px 20px 40px;
+    }
+
+    .brand-hero-title {
+      font-size: 5.2rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #FFF6D6 0%, #F3A83B 50%, #E87C1E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 25px rgba(243, 168, 59, 0.45));
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      letter-spacing: 6px;
+      color: var(--accent-gold);
+      margin-bottom: 75px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .hero-title-wrapper {
+      min-height: 140px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      max-width: 1250px;
+      position: relative;
+      word-break: keep-all;
+      word-wrap: break-word;
+    }
+
+    .char {
+      display: inline-block;
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      opacity: 0;
+      filter: blur(16px);
+      transform: translateY(10px) scale(0.96);
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      background: linear-gradient(135deg, #1D1D1F 0%, #C5A059 50%, #1D1D1F 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      word-break: keep-all;
+    }
+
+    .space { display: inline-block; width: 0.4em; }
+
+    .char.visible {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0) scale(1);
+    }
+
+    .char.wave-dissolve {
+      opacity: 0;
+      filter: blur(14px);
+      transform: translateY(-12px) scale(1.08) skewX(-12deg);
+      transition: opacity 0.45s ease, filter 0.45s ease, transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* 풀스크린 화보 슬라이더 */
+    .artist-editorial-section {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      margin: 40px 0 100px 0;
+      background: #000;
+    }
+
+    .editorial-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      padding: 0 90px;
+    }
+
+    .editorial-slide.active { opacity: 1; }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center 30%;
+      z-index: 1;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.75) 100%);
+      z-index: 2;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 3;
+      color: #FFFFFF;
+      max-width: 850px;
+      margin-top: 140px;
+    }
+
+    .slide-badge {
+      display: inline-block;
+      padding: 8px 22px;
+      background: rgba(197, 160, 89, 0.4);
+      border: 1px solid var(--accent-gold-light);
+      backdrop-filter: blur(12px);
+      border-radius: 30px;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: #FFFDF9;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .slide-name-wrapper { margin-bottom: 20px; }
+
+    .slide-name {
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: #FFFFFF;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+      margin-bottom: 6px;
+    }
+
+    .slide-english-name {
+      font-size: 20px;
+      color: var(--accent-gold-light);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .slide-desc {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
+      line-height: 1.6;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      word-break: keep-all;
+      max-width: 700px;
+    }
+
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #FFFFFF;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    .slider-arrow:hover {
+      background: rgba(197, 160, 89, 0.85);
+      border-color: var(--accent-gold-light);
+      box-shadow: 0 0 25px rgba(229, 193, 88, 0.6);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .slider-arrow.prev { left: 25px; }
+    .slider-arrow.next { right: 25px; }
+
+    @media (max-width: 768px) {
+      .hero { padding-top: 120px; }
+      .brand-hero-title { font-size: 3.2rem; }
+      .hero-subtitle { margin-bottom: 45px; }
+      .char { font-size: 28px; }
+      .editorial-slide { padding: 0 15px; }
+      .slider-arrow { width: 36px; height: 36px; font-size: 14px; }
+      .slider-arrow.prev { left: 6px; }
+      .slider-arrow.next { right: 6px; }
+      .slide-content { position: absolute; bottom: 85px; left: 20px; right: 20px; margin-top: 0; padding: 0; text-align: left; }
+      .slide-name-wrapper { position: absolute; top: -420px; left: 20px; right: auto; margin-bottom: 0; text-align: left; }
+      .slide-name { font-size: 24px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+      .slide-english-name { font-size: 12px; white-space: nowrap; }
+      .slide-badge { font-size: 11px; padding: 5px 12px; margin-bottom: 8px; letter-spacing: 2px; }
+      .slide-desc { font-size: 13px; line-height: 1.4; }
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: 120px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 80px;
+      letter-spacing: 3px;
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .artist-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    @media (max-width: 992px) { .artist-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 650px) { .artist-grid { grid-template-columns: 1fr; } .section-title { font-size: 28px; margin-bottom: 50px; } }
+
+    /* 래퍼: 자율 둥둥 상하 모션 */
+    .artist-card-wrapper {
+      width: 290px;
+      height: 390px;
+      perspective: 1000px;
+      animation: floatWrapper 4s ease-in-out infinite alternate;
+    }
+
+    .artist-card-wrapper:nth-child(1) { animation-delay: 0.0s; animation-duration: 3.8s; }
+    .artist-card-wrapper:nth-child(2) { animation-delay: -1.2s; animation-duration: 4.2s; }
+    .artist-card-wrapper:nth-child(3) { animation-delay: -2.4s; animation-duration: 3.9s; }
+    .artist-card-wrapper:nth-child(4) { animation-delay: -0.8s; animation-duration: 4.4s; }
+    .artist-card-wrapper:nth-child(5) { animation-delay: -1.8s; animation-duration: 3.7s; }
+    .artist-card-wrapper:nth-child(6) { animation-delay: -2.8s; animation-duration: 4.1s; }
+    .artist-card-wrapper:nth-child(7) { animation-delay: -0.5s; animation-duration: 4.3s; }
+    .artist-card-wrapper:nth-child(8) { animation-delay: -1.5s; animation-duration: 3.6s; }
+    .artist-card-wrapper:nth-child(9) { animation-delay: -2.2s; animation-duration: 4.0s; }
+
+    @keyframes floatWrapper {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-12px); }
+    }
+
+    /* 실제 계란 카드 */
+    .artist-card-oval {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: none;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      padding: 40px 20px;
+      transform-style: preserve-3d;
+      will-change: transform, box-shadow;
+      animation: whiteBulbGlow 2.0s ease-in-out infinite alternate;
+      transition: box-shadow 0.35s ease, transform 0.1s ease-out;
+    }
+
+    .artist-card-wrapper:nth-child(1) .artist-card-oval { animation-delay: 0.0s; }
+    .artist-card-wrapper:nth-child(2) .artist-card-oval { animation-delay: -0.5s; }
+    .artist-card-wrapper:nth-child(3) .artist-card-oval { animation-delay: -1.0s; }
+    .artist-card-wrapper:nth-child(4) .artist-card-oval { animation-delay: -0.3s; }
+    .artist-card-wrapper:nth-child(5) .artist-card-oval { animation-delay: -0.8s; }
+    .artist-card-wrapper:nth-child(6) .artist-card-oval { animation-delay: -1.3s; }
+    .artist-card-wrapper:nth-child(7) .artist-card-oval { animation-delay: -0.2s; }
+    .artist-card-wrapper:nth-child(8) .artist-card-oval { animation-delay: -0.7s; }
+    .artist-card-wrapper:nth-child(9) .artist-card-oval { animation-delay: -1.1s; }
+
+    @keyframes whiteBulbGlow {
+      0% {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05),
+                    0 0 12px rgba(255, 255, 255, 0.4),
+                    inset 0 0 10px rgba(255, 255, 255, 0.6);
+      }
+      100% {
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.09),
+                    0 0 45px rgba(255, 255, 255, 1),
+                    0 0 75px rgba(255, 255, 255, 0.8),
+                    inset 0 0 35px rgba(255, 255, 255, 1);
+      }
+    }
+
+    .artist-card-oval:hover {
+      animation-play-state: paused;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.16),
+                  0 0 35px rgba(255, 255, 255, 1),
+                  0 0 80px rgba(255, 248, 230, 0.95),
+                  0 0 130px rgba(245, 225, 185, 0.7),
+                  inset 0 0 45px rgba(255, 255, 255, 1) !important;
+    }
+
+    .artist-thumb {
+      width: 145px;
+      height: 145px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 16px auto;
+      border: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.35s ease;
+      pointer-events: none;
+    }
+
+    .artist-card-oval:hover .artist-thumb { transform: scale(1.06); }
+
+    .artist-card-text {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .artist-name {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .artist-role {
+      font-size: 14px;
+      color: var(--accent-gold);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      line-height: 1.3;
+    }
+
+    /* 멀티 트랙 선택형 하단 음원 플레이어 섹션 */
+    .audio-player-section {
+      max-width: 900px;
+      margin: 80px auto 120px auto;
+      padding: 30px 40px;
+      background: #1D1D1F;
+      border-radius: 24px;
+      border: 1px solid var(--border-color);
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 10;
+    }
+
+    .player-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .player-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent-gold-light);
+    }
+
+    .track-control-panel {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .track-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-color);
+      color: #FFFFFF;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-size: 12px;
+    }
+
+    .track-btn:hover {
+      background: var(--accent-gold);
+      color: #1D1D1F;
+    }
+
+    .track-select-dropdown {
+      background: #2D2D2F;
+      color: #FFFFFF;
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .track-select-dropdown:hover, .track-select-dropdown:focus {
+      border-color: var(--accent-gold-light);
+    }
+
+    .audio-player-section audio {
+      width: 100%;
+      accent-color: var(--accent-gold);
+    }
+
+    /* 🔥 [핵심 수정] 템플릿 제1호 완전 이식: 부모 높이와 sticky로 위에서 덮어오는 오버레이 레이어 */
+    .sticky-container {
+      position: relative;
+      width: 100%;
+      height: 250vh; /* 하단 스크롤 트래블 공간을 충분히 제공 */
+    }
+
+    .sticky-overlay-section {
+      position: sticky;
+      top: 0;
+      min-height: 100vh;
+      width: 100%;
+      background: #0b0b0c;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
+      gap: 30px;
+      box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.95);
+      z-index: 30;
+      overflow-y: auto;
+    }
+
+    /* 앨범 커버 가로 슬라이더 섹션 (1200px 규격) */
+    .album-gallery-section {
+      max-width: 1200px;
+      width: 100%;
+      padding: 25px 35px;
+      background: #1D1D1F;
+      border-radius: 24px;
+      border: 1px solid var(--border-color);
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.2);
+    }
+
+    .album-slider-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 5px 0 10px 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent-gold) #2D2D2F;
+    }
+
+    .album-slider-wrapper::-webkit-scrollbar { height: 6px; }
+    .album-slider-wrapper::-webkit-scrollbar-track { background: #2D2D2F; border-radius: 10px; }
+    .album-slider-wrapper::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 10px; }
+
+    .album-track-list {
+      display: flex;
+      gap: 28px;
+      width: max-content;
+    }
+
+    .album-card {
+      width: 160px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .album-card:hover { transform: translateY(-6px) scale(1.04); }
+
+    .album-cover-img {
+      width: 160px;
+      height: 160px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .album-card:hover .album-cover-img {
+      box-shadow: 0 14px 35px rgba(197, 160, 89, 0.45);
+      border-color: var(--accent-gold-light);
+    }
+
+    .album-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #FFFFFF;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .album-card-artist {
+      font-size: 12px;
+      color: var(--accent-gold-light);
+      text-align: center;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    /* 공식 뮤직비디오 섹션 (900px 규격) */
+    .video-section {
+      max-width: 900px;
+      width: 100%;
+      padding: 25px 35px;
+      background: #1D1D1F;
+      border-radius: 24px;
+      border: 1px solid var(--border-color);
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 50%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* 🔥 [신규 추가] 회장님 요청: 스티키 덮어쓰기 작동을 완벽히 보장하는 하단 임의 섹션 */
+    .next-brand-section {
+      position: relative;
+      z-index: 40;
+      min-height: 80vh;
+      background: #050505;
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 100px 20px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .brand-vision-title {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--accent-gold-light);
+      margin-bottom: 20px;
+    }
+
+    .brand-vision-desc {
+      font-size: 18px;
+      max-width: 750px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+
+    footer {
+      text-align: center;
+      padding: 50px 20px 80px 20px;
+      color: var(--text-sub);
+      font-size: 14px;
+      border-top: 1px solid var(--border-color);
+      background: #000000;
+      position: relative;
+      z-index: 50;
+    }
+  </style>
 </head>
-<body class="selection:bg-brand-orange selection:text-white pb-24">
+<body>
 
-    <!-- ================= TOP NAVIGATION BAR ================= -->
-    <header class="sticky top-0 z-50 bg-white border-b border-zinc-200">
-        <div class="max-w-[1800px] mx-auto px-6 sm:px-10 h-20 flex items-center justify-between">
-            
-            <!-- Left Menu -->
-            <nav class="hidden lg:flex items-center space-x-8 text-sm font-bold tracking-tight text-black">
-                <button onclick="switchTab('store')" class="hover:text-brand-orange transition-colors">Store</button>
-                <button onclick="scrollToSection('artists')" class="hover:text-brand-orange transition-colors">Artists</button>
-                <button onclick="scrollToSection('news')" class="hover:text-brand-orange transition-colors">News</button>
-                <button onclick="scrollToSection('tours')" class="hover:text-brand-orange transition-colors">Tours</button>
-            </nav>
+  <header>
+    <div class="logo">Q-RI <span>SOUND</span></div>
+  </header>
 
-            <button onclick="toggleMobileMenu()" class="lg:hidden text-2xl text-black">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+  <main>
+    <section class="hero">
+      <h1 class="brand-hero-title">Q-RI SOUND</h1>
+      <div class="hero-subtitle">GLOBAL VOCAL ENTERTAINMENT</div>
+      <div class="hero-title-wrapper" id="titleWrapper"></div>
+    </section>
 
-            <!-- Center Logo Emblem -->
-            <a href="#" onclick="switchTab('main')" class="flex flex-col items-center justify-center group">
-                <div class="logo-circle font-mono group-hover:scale-105 transition-transform">
-                    <span class="leading-tight">Q-RI<br>SND</span>
-                </div>
-            </a>
+    <!-- 5인 화보 풀스크린 슬라이더 -->
+    <section class="artist-editorial-section">
+      <div class="slider-arrow prev" id="prevBtn">&#10094;</div>
+      
+      <!-- 1. 이도화 -->
+      <div class="editorial-slide active">
+        <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-name-wrapper">
+            <h2 class="slide-name">이도화</h2>
+            <div class="slide-english-name">Lee Do-hwa</div>
+          </div>
+          <span class="slide-badge">LEEDO-HWA / LEAD VOCAL</span>
+          <p class="slide-desc">대중성과 깊은 감성을 포괄하는 독보적 가창력. '독보청천'으로 펼쳐내는 큐리사운드의 메인 보컬 아티스트.</p>
+        </div>
+      </div>
 
-            <!-- Right Controls: Search, Profile, Cart -->
-            <div class="flex items-center space-x-6">
-                <div class="hidden sm:flex items-center border-b border-black pb-1 w-48 lg:w-60">
-                    <input type="text" placeholder="Search" class="w-full text-xs font-normal focus:outline-none bg-transparent placeholder-zinc-400">
-                    <i class="fa-solid fa-magnifying-glass text-xs text-zinc-600"></i>
-                </div>
-                <button class="text-black hover:text-brand-orange transition-colors"><i class="fa-regular fa-user text-lg"></i></button>
-                <button onclick="toggleCartModal()" class="relative text-black hover:text-brand-orange transition-colors">
-                    <i class="fa-solid fa-bag-shopping text-lg"></i>
-                    <span id="cartBadge" class="absolute -top-1.5 -right-2 bg-brand-orange text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center hidden">0</span>
-                </button>
-                <button class="hidden sm:block text-black hover:text-brand-orange transition-colors"><i class="fa-regular fa-envelope text-lg"></i></button>
+      <!-- 2. 보화연 -->
+      <div class="editorial-slide">
+        <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-name-wrapper">
+            <h2 class="slide-name">보화연</h2>
+            <div class="slide-english-name">Bo Hwa-yeon</div>
+          </div>
+          <span class="slide-badge">BOHWA-YEON / K-ETHNIC CROSSOVER</span>
+          <p class="slide-desc">국악 트롯과 정통 소리의 현대적 재해석. 동양의 울림을 세계로 확장하는 퓨전 보컬 리더.</p>
+        </div>
+      </div>
+
+      <!-- 3. 화수분 -->
+      <div class="editorial-slide">
+        <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-name-wrapper">
+            <h2 class="slide-name">화수분</h2>
+            <div class="slide-english-name">Hwasubun</div>
+          </div>
+          <span class="slide-badge">HWASUBUN / HEALING & FOLK VOICE</span>
+          <p class="slide-desc">지친 영혼을 맑게 씻어내는 포크 발라드의 거장. 끊임없이 보물을 배출하는 기적의 사운드.</p>
+        </div>
+      </div>
+
+      <!-- 4. 루핀 -->
+      <div class="editorial-slide">
+        <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-name-wrapper">
+            <h2 class="slide-name">루핀</h2>
+            <div class="slide-english-name">Lupin</div>
+          </div>
+          <span class="slide-badge">LUPIN / SYNTH & MELODY</span>
+          <p class="slide-desc">감각적인 리듬감과 현대적인 감성을 이끄는 트렌디 보컬 프로듀서.</p>
+        </div>
+      </div>
+
+      <!-- 5. 놀라 -->
+      <div class="editorial-slide">
+        <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-name-wrapper">
+            <h2 class="slide-name">놀라</h2>
+            <div class="slide-english-name">Nola</div>
+          </div>
+          <span class="slide-badge">NOLA / RHYTHM & BEAT</span>
+          <p class="slide-desc">파워풀한 에너지와 강렬한 보컬 퍼포먼스로 무대를 사로잡는 신성 아티스트.</p>
+        </div>
+      </div>
+
+      <div class="slider-arrow next" id="nextBtn">&#10095;</div>
+    </section>
+
+    <!-- 섹션 타이틀: Our Artists -->
+    <section class="section">
+      <div class="section-title">Our Artists</div>
+      <div class="artist-grid">
+        <div class="artist-card-wrapper"><div class="artist-card-oval"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="이도화" class="artist-thumb"><div class="artist-card-text"><div class="artist-name">이도화</div><div class="artist-role">Lead Vocal</div></div></div></div>
+        <div class="artist-card-wrapper"><div class="artist-card-oval"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" alt="보화연" class="artist-thumb"><div class="artist-card-text"><div class="artist-name">보화연</div><div class="artist-role">Acoustic Producer</div></div></div></div>
+        <div class="artist-card-wrapper"><div class="artist-card-oval"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" alt="화수분" class="artist-thumb"><div class="artist-card-text"><div class="artist-name">화수분</div><div class="artist-role">Healing Master</div></div></div></div>
+        <div class="artist-card-wrapper"><div class="artist-card-oval"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80" alt="루핀" class="artist-thumb"><div class="artist-card-text"><div class="artist-name">루핀</div><div class="artist-role">Synth & Melody</div></div></div></div>
+        <div class="artist-card-wrapper"><div class="artist-card-oval"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80" alt="놀라" class="artist-thumb"><div class="artist-card-text"><div class="artist-name">놀라</div><div class="artist-role">Rhythm & Beat</div></div></div></div>
+        <div class="artist-card-wrapper"><div class="artist-card-oval"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80" alt="우화선" class="artist-thumb"><div class="artist-card-text"><div class="artist-name">우화선</div><div class="artist-role">Ambient Sound</div></div></div></div>
+        <div class="artist-card-wrapper"><div class="artist-card-oval"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" alt="나정이" class="artist-thumb"><div class="artist-card-text"><div class="artist-name">나정이</div><div class="artist-role">Lyricist</div></div></div></div>
+        <div class="artist-card-wrapper"><div class="artist-card-oval"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80" alt="도향" class="artist-thumb"><div class="artist-card-text"><div class="artist-name">도향</div><div class="artist-role">Acoustic Guitarnist</div></div></div></div>
+        <div class="artist-card-wrapper"><div class="artist-card-oval"><img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80" alt="도솔미" class="artist-thumb"><div class="artist-card-text"><div class="artist-name">도솔미</div><div class="artist-role">Mastering Vocal</div></div></div></div>
+      </div>
+    </section>
+
+    <!-- 멀티 트랙 선택형 하단 음원 플레이어 섹션 (여기까지만 창에 정상 고정 노출) -->
+    <section class="audio-player-section">
+      <div class="player-header">
+        <div class="player-title">Q-RI SOUND OFFICIAL STREAM</div>
+        <div class="track-control-panel">
+          <button class="track-btn" id="prevTrackBtn" title="이전 곡">&#10094;</button>
+          <select class="track-select-dropdown" id="trackSelect">
+            <option value="0">Track 01. 큐리사운드 대표 컬렉션 믹스</option>
+            <option value="1">Track 02. 이도화 - 독보청천</option>
+            <option value="2">Track 03. 보화연 & 화수분 - 동양의 울림</option>
+          </select>
+          <button class="track-btn" id="nextTrackBtn" title="다음 곡">&#10095;</button>
+        </div>
+      </div>
+
+      <audio id="mainAudioPlayer" controls>
+        <source id="audioSource" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        브라우저가 오디오 태그를 지원하지 않습니다.
+      </audio>
+    </section>
+
+    <!-- 🔥 스티키 오버레이 엔진: 앨범 커버 & 뮤직비디오가 화면 전체를 위로 덮어 쓰며 등장 -->
+    <div class="sticky-container">
+      <section class="sticky-overlay-section">
+        
+        <!-- 앨범 커버 가로 슬라이더 섹션 (1200px 규격) -->
+        <div class="album-gallery-section">
+          <div class="player-header">
+            <div class="player-title">DISCOGRAPHY & ALBUM COVERS</div>
+            <div class="track-control-panel">
+              <button class="track-btn" id="slideLeftBtn" title="왼쪽 스크롤">&#10094;</button>
+              <button class="track-btn" id="shuffleAlbumsBtn" title="랜덤 섞기">&#8635;</button>
+              <button class="track-btn" id="slideRightBtn" title="오른쪽 스크롤">&#10095;</button>
             </div>
+          </div>
+
+          <div class="album-slider-wrapper" id="albumSliderWrapper">
+            <div class="album-track-list" id="albumTrackList">
+              <!-- 9개 아티스트 앨범 커버 동적 생성 -->
+            </div>
+          </div>
         </div>
 
-        <!-- Mobile Drawer Menu -->
-        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-zinc-200 px-6 py-6 space-y-4 font-bold text-sm">
-            <button onclick="switchTab('store'); toggleMobileMenu();" class="block w-full text-left py-1 hover:text-brand-orange">Store</button>
-            <button onclick="scrollToSection('artists'); toggleMobileMenu();" class="block w-full text-left py-1 hover:text-brand-orange">Artists</button>
-            <button onclick="scrollToSection('news'); toggleMobileMenu();" class="block w-full text-left py-1 hover:text-brand-orange">News</button>
-            <button onclick="scrollToSection('tours'); toggleMobileMenu();" class="block w-full text-left py-1 hover:text-brand-orange">Tours</button>
-        </div>
-    </header>
-
-    <!-- ================= MAIN PAGE CONTAINER ================= -->
-    <main id="mainView" class="transition-opacity duration-300">
-
-        <!-- 1️⃣ HERO HERO CAROUSEL (Full Visual + Slide Peek Preview) -->
-        <section class="relative w-full overflow-hidden pt-4 pb-12">
-            <div class="relative max-w-[1800px] mx-auto">
-                <div id="heroSlider" class="flex gap-4 overflow-x-auto no-scrollbar snap-carousel px-4 sm:px-8">
-                    
-                    <!-- Slide 1: 이도화 -->
-                    <div class="snap-item flex-none w-[90vw] lg:w-[82vw] h-[650px] sm:h-[720px] relative bg-black overflow-hidden flex items-end">
-                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1600&q=85" alt="이도화" class="absolute inset-0 w-full h-full object-cover filter brightness-90">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
-                        <div class="relative z-10 p-8 sm:p-16 max-w-2xl space-y-4 text-white">
-                            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-                                이도화 - '새벽 달빛 트롯 발라드' LP Release
-                            </h1>
-                            <p class="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed">
-                                독보적인 감성의 트롯 발라더 이도화의 정규 3집. 심금을 울리는 음색과 180g 헤비웨이트 오디오필 바이닐 한정판 릴리스.
-                            </p>
-                            <div class="flex items-center gap-4 pt-4">
-                                <button onclick="switchTab('store')" class="px-6 py-3 bg-brand-orange text-white font-bold text-xs uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">Pre-Order Vinyl</button>
-                                <button onclick="playTrack(0)" class="px-6 py-3 bg-brand-orange text-white font-bold text-xs uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">Listen Preview</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 2: 루핀 -->
-                    <div class="snap-item flex-none w-[90vw] lg:w-[82vw] h-[650px] sm:h-[720px] relative bg-zinc-900 overflow-hidden flex items-end">
-                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1600&q=85" alt="루핀" class="absolute inset-0 w-full h-full object-cover filter brightness-90">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent"></div>
-                        <div class="relative z-10 p-8 sm:p-16 max-w-2xl space-y-4 text-white">
-                            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-                                루핀 (Lupin) - 'Midnight City Grooves'
-                            </h1>
-                            <p class="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed">
-                                도회적인 네온 감성과 80년대 레트로 시티팝 사운드의 집대성. 큐리 사운드의 신예 시티팝 싱어송라이터 루핀의 데뷔 LP.
-                            </p>
-                            <div class="flex items-center gap-4 pt-4">
-                                <button onclick="switchTab('store')" class="px-6 py-3 bg-brand-orange text-white font-bold text-xs uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">Buy Vinyl</button>
-                                <button onclick="playTrack(3)" class="px-6 py-3 bg-brand-orange text-white font-bold text-xs uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">More Info</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 3: 보화연 -->
-                    <div class="snap-item flex-none w-[90vw] lg:w-[82vw] h-[650px] sm:h-[720px] relative bg-zinc-800 overflow-hidden flex items-end">
-                        <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1600&q=85" alt="보화연" class="absolute inset-0 w-full h-full object-cover filter brightness-90">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent"></div>
-                        <div class="relative z-10 p-8 sm:p-16 max-w-2xl space-y-4 text-white">
-                            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-                                보화연 - '국악 트롯 서사시'
-                            </h1>
-                            <p class="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed">
-                                전통 국악의 가락과 현대 트롯 리듬의 우아한 결합. 국악트롯의 독보적 아티스트 보화연의 대작 프로젝트.
-                            </p>
-                            <div class="flex items-center gap-4 pt-4">
-                                <button onclick="switchTab('store')" class="px-6 py-3 bg-brand-orange text-white font-bold text-xs uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">Pre-Order Boxset</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Slider Arrows Controls -->
-                <button onclick="scrollSlider('heroSlider', -800)" class="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/80 hover:bg-white text-black flex items-center justify-center shadow-lg transition-all">
-                    <i class="fa-solid fa-chevron-left text-lg"></i>
-                </button>
-                <button onclick="scrollSlider('heroSlider', 800)" class="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/80 hover:bg-white text-black flex items-center justify-center shadow-lg transition-all">
-                    <i class="fa-solid fa-chevron-right text-lg"></i>
-                </button>
+        <!-- 공식 뮤직비디오 섹션 (900px 규격) -->
+        <div class="video-section">
+          <div class="player-header">
+            <div class="player-title">OFFICIAL MUSIC VIDEO</div>
+            <div class="track-control-panel">
+              <button class="track-btn" id="prevVideoBtn" title="이전 영상">&#10094;</button>
+              <select class="track-select-dropdown" id="videoSelect">
+                <option value="0">M/V 01. 이도화 - 독보청천 Official M/V</option>
+                <option value="1">M/V 02. 보화연 - 국악 퓨전 오프닝 비주얼</option>
+                <option value="2">M/V 03. 큐리사운드 레이블 브랜드 필름</option>
+              </select>
+              <button class="track-btn" id="nextVideoBtn" title="다음 영상">&#10095;</button>
             </div>
-        </section>
+          </div>
 
-        <!-- 2️⃣ NEW RELEASES SECTION -->
-        <section class="py-16 max-w-[1800px] mx-auto px-6 sm:px-10 border-t border-zinc-100">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-4xl sm:text-5xl font-extrabold text-black tracking-tight">New Releases</h2>
-                <button onclick="switchTab('store')" class="px-6 py-2.5 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">View All</button>
-            </div>
-
-            <!-- Horizontal Carousel Grid -->
-            <div class="relative">
-                <div id="newReleasesSlider" class="flex gap-6 overflow-x-auto no-scrollbar snap-carousel py-2">
-                    
-                    <!-- Item 1 -->
-                    <div class="snap-item flex-none w-64 sm:w-72 group cursor-pointer" onclick="playTrack(0)">
-                        <div class="relative aspect-square bg-zinc-100 overflow-hidden mb-3">
-                            <span class="absolute top-2 left-2 z-10 bg-black text-white text-[10px] font-bold px-2 py-0.5">Pre-Order</span>
-                            <img src="https://images.unsplash.com/photo-1539375665275-f9de415ef9ac?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <h3 class="font-bold text-base text-black group-hover:text-brand-orange transition-colors">새벽 달빛 (Moonlight)</h3>
-                        <p class="text-xs text-zinc-500 font-medium">이도화 (Trot Ballad)</p>
-                    </div>
-
-                    <!-- Item 2 -->
-                    <div class="snap-item flex-none w-64 sm:w-72 group cursor-pointer" onclick="playTrack(1)">
-                        <div class="relative aspect-square bg-zinc-100 overflow-hidden mb-3">
-                            <span class="absolute top-2 left-2 z-10 bg-brand-orange text-white text-[10px] font-bold px-2 py-0.5">New</span>
-                            <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <h3 class="font-bold text-base text-black group-hover:text-brand-orange transition-colors">태평가 (Peace Odes)</h3>
-                        <p class="text-xs text-zinc-500 font-medium">보화연 (Gukak Trot)</p>
-                    </div>
-
-                    <!-- Item 3 -->
-                    <div class="snap-item flex-none w-64 sm:w-72 group cursor-pointer" onclick="playTrack(2)">
-                        <div class="relative aspect-square bg-zinc-100 overflow-hidden mb-3">
-                            <span class="absolute top-2 left-2 z-10 bg-brand-orange text-white text-[10px] font-bold px-2 py-0.5">New</span>
-                            <img src="https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <h3 class="font-bold text-base text-black group-hover:text-brand-orange transition-colors">기억의 온도 (Temperature)</h3>
-                        <p class="text-xs text-zinc-500 font-medium">화수분 (Ballad)</p>
-                    </div>
-
-                    <!-- Item 4 -->
-                    <div class="snap-item flex-none w-64 sm:w-72 group cursor-pointer" onclick="playTrack(3)">
-                        <div class="relative aspect-square bg-zinc-100 overflow-hidden mb-3">
-                            <span class="absolute top-2 left-2 z-10 bg-black text-white text-[10px] font-bold px-2 py-0.5">Pre-Order</span>
-                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <h3 class="font-bold text-base text-black group-hover:text-brand-orange transition-colors">City Lights & Neon</h3>
-                        <p class="text-xs text-zinc-500 font-medium">루핀 (City Pop)</p>
-                    </div>
-
-                    <!-- Item 5 -->
-                    <div class="snap-item flex-none w-64 sm:w-72 group cursor-pointer" onclick="playTrack(4)">
-                        <div class="relative aspect-square bg-zinc-100 overflow-hidden mb-3">
-                            <span class="absolute top-2 left-2 z-10 bg-brand-orange text-white text-[10px] font-bold px-2 py-0.5">New</span>
-                            <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <h3 class="font-bold text-base text-black group-hover:text-brand-orange transition-colors">Quiet Morning Meditation</h3>
-                        <p class="text-xs text-zinc-500 font-medium">놀라 (New Age)</p>
-                    </div>
-
-                </div>
-
-                <button onclick="scrollSlider('newReleasesSlider', -400)" class="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 shadow-md text-black flex items-center justify-center border border-zinc-200">
-                    <i class="fa-solid fa-chevron-left text-xs"></i>
-                </button>
-                <button onclick="scrollSlider('newReleasesSlider', 400)" class="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 shadow-md text-black flex items-center justify-center border border-zinc-200">
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                </button>
-            </div>
-        </section>
-
-        <!-- 3️⃣ FEATURED SPOTLIGHT (Madlib Beat Konducta Style Layout) -->
-        <section class="py-16 max-w-[1800px] mx-auto px-6 sm:px-10 border-t border-zinc-100">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-black tracking-tight">우화선 Blues & Folk Series</h2>
-                <button onclick="switchTab('store')" class="px-6 py-2.5 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">View All</button>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                
-                <!-- Left Large Featured Panel -->
-                <div class="lg:col-span-6 bg-zinc-50 border border-zinc-200 p-8 sm:p-12 flex flex-col justify-between group">
-                    <div class="relative w-full aspect-square bg-white overflow-hidden mb-8 border border-zinc-200">
-                        <span class="absolute top-3 left-3 bg-black text-white text-xs font-bold px-3 py-1 z-10">Featured Box Set</span>
-                        <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1000&q=85" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="bg-black text-white p-8 space-y-4">
-                        <span class="text-xs font-mono text-brand-orange uppercase tracking-widest font-bold">LIMITED DELUXE VINYL</span>
-                        <h3 class="text-2xl sm:text-4xl font-extrabold leading-tight">우화선 (Woo Hwa-seon)</h3>
-                        <p class="text-sm font-bold text-zinc-300">Folk & Blues Anthology Box Set - Pre-Order</p>
-                        <p class="text-xs text-zinc-400 font-normal leading-relaxed">
-                            우화선의 깊은 고독과 블루스 기타 선율, 포크의 진정성이 담긴 4LP 헤비웨이트 딜럭스 컬렉션 박스세트.
-                        </p>
-                        <button onclick="addToCart('우화선 Folk & Blues Box Set', 125000, 'QR-BOX-01')" class="mt-4 px-6 py-3 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">Add To Cart — ₩125,000</button>
-                    </div>
-                </div>
-
-                <!-- Right 2x2 Grid (Vinyl Variants) -->
-                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    
-                    <div class="bg-zinc-50 border border-zinc-200 p-6 flex flex-col justify-between group">
-                        <div class="relative aspect-square overflow-hidden mb-4 border border-zinc-200">
-                            <span class="absolute top-2 left-2 bg-black text-white text-[10px] font-bold px-2 py-0.5">Pre-Order</span>
-                            <img src="https://images.unsplash.com/photo-1539375665275-f9de415ef9ac?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                        </div>
-                        <div class="space-y-1">
-                            <h4 class="font-bold text-sm text-black">황혼의 블루스 (Dusk Blues)</h4>
-                            <p class="text-xs text-zinc-500">우화선 (Woo Hwa-seon)</p>
-                            <p class="text-xs font-bold text-black pt-2">₩38,000</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-zinc-50 border border-zinc-200 p-6 flex flex-col justify-between group">
-                        <div class="relative aspect-square overflow-hidden mb-4 border border-zinc-200">
-                            <span class="absolute top-2 left-2 bg-black text-white text-[10px] font-bold px-2 py-0.5">Pre-Order</span>
-                            <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                        </div>
-                        <div class="space-y-1">
-                            <h4 class="font-bold text-sm text-black">바람 부는 언덕 (Windy Hill)</h4>
-                            <p class="text-xs text-zinc-500">우화선 (Woo Hwa-seon)</p>
-                            <p class="text-xs font-bold text-black pt-2">₩35,000</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-zinc-50 border border-zinc-200 p-6 flex flex-col justify-between group">
-                        <div class="relative aspect-square overflow-hidden mb-4 border border-zinc-200">
-                            <span class="absolute top-2 left-2 bg-black text-white text-[10px] font-bold px-2 py-0.5">Pre-Order</span>
-                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                        </div>
-                        <div class="space-y-1">
-                            <h4 class="font-bold text-sm text-black">통기타 밤소풍 Vol.1</h4>
-                            <p class="text-xs text-zinc-500">우화선 (Woo Hwa-seon)</p>
-                            <p class="text-xs font-bold text-black pt-2">₩36,000</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-zinc-50 border border-zinc-200 p-6 flex flex-col justify-between group">
-                        <div class="relative aspect-square overflow-hidden mb-4 border border-zinc-200">
-                            <span class="absolute top-2 left-2 bg-black text-white text-[10px] font-bold px-2 py-0.5">Pre-Order</span>
-                            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                        </div>
-                        <div class="space-y-1">
-                            <h4 class="font-bold text-sm text-black">서울의 밤 그리고 거문고</h4>
-                            <p class="text-xs text-zinc-500">우화선 x 보화연</p>
-                            <p class="text-xs font-bold text-black pt-2">₩42,000</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 4️⃣ MASTERPIECE CLASSICS (Dungeon Favorites Style) -->
-        <section class="py-16 max-w-[1800px] mx-auto px-6 sm:px-10 border-t border-zinc-100">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-black tracking-tight">Q-Ri Classics</h2>
-                <button onclick="switchTab('store')" class="px-6 py-2.5 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">More Vinyl</button>
-            </div>
-
-            <div class="relative">
-                <div id="classicsSlider" class="flex gap-6 overflow-x-auto no-scrollbar snap-carousel py-2">
-                    
-                    <div class="snap-item flex-none w-60 sm:w-64 group cursor-pointer" onclick="playTrack(5)">
-                        <div class="aspect-square bg-zinc-100 overflow-hidden mb-3 border border-zinc-200">
-                            <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                        </div>
-                        <h3 class="font-bold text-base text-black group-hover:text-brand-orange transition-colors">꽃길 타령</h3>
-                        <p class="text-xs text-zinc-500 font-medium">나정이 (Semi Trot)</p>
-                    </div>
-
-                    <div class="snap-item flex-none w-60 sm:w-64 group cursor-pointer" onclick="playTrack(6)">
-                        <div class="aspect-square bg-zinc-100 overflow-hidden mb-3 border border-zinc-200">
-                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                        </div>
-                        <h3 class="font-bold text-base text-black group-hover:text-brand-orange transition-colors">한오백년 (Classic Folk)</h3>
-                        <p class="text-xs text-zinc-500 font-medium">도향 (Authentic Trot)</p>
-                    </div>
-
-                    <div class="snap-item flex-none w-60 sm:w-64 group cursor-pointer" onclick="playTrack(7)">
-                        <div class="aspect-square bg-zinc-100 overflow-hidden mb-3 border border-zinc-200">
-                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                        </div>
-                        <h3 class="font-bold text-base text-black group-hover:text-brand-orange transition-colors">아리랑 고개 넘어</h3>
-                        <p class="text-xs text-zinc-500 font-medium">도솔미 (Authentic Trot)</p>
-                    </div>
-
-                    <div class="snap-item flex-none w-60 sm:w-64 group cursor-pointer" onclick="playTrack(0)">
-                        <div class="aspect-square bg-zinc-100 overflow-hidden mb-3 border border-zinc-200">
-                            <img src="https://images.unsplash.com/photo-1539375665275-f9de415ef9ac?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                        </div>
-                        <h3 class="font-bold text-base text-black group-hover:text-brand-orange transition-colors">추억의 트롯 발라드</h3>
-                        <p class="text-xs text-zinc-500 font-medium">이도화 (Trot Ballad)</p>
-                    </div>
-
-                    <div class="snap-item flex-none w-60 sm:w-64 group cursor-pointer" onclick="playTrack(1)">
-                        <div class="aspect-square bg-zinc-100 overflow-hidden mb-3 border border-zinc-200">
-                            <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                        </div>
-                        <h3 class="font-bold text-base text-black group-hover:text-brand-orange transition-colors">창부타령 리믹스</h3>
-                        <p class="text-xs text-zinc-500 font-medium">보화연 (Gukak Trot)</p>
-                    </div>
-
-                </div>
-
-                <button onclick="scrollSlider('classicsSlider', -400)" class="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 shadow-md text-black flex items-center justify-center border border-zinc-200">
-                    <i class="fa-solid fa-chevron-left text-xs"></i>
-                </button>
-                <button onclick="scrollSlider('classicsSlider', 400)" class="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 shadow-md text-black flex items-center justify-center border border-zinc-200">
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                </button>
-            </div>
-        </section>
-
-        <!-- 5️⃣ MERCH SECTION -->
-        <section class="py-16 max-w-[1800px] mx-auto px-6 sm:px-10 border-t border-zinc-100">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-black tracking-tight">Merch</h2>
-                <button onclick="switchTab('store')" class="px-6 py-2.5 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">Shop Merch</button>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                
-                <div class="bg-zinc-50 p-6 border border-zinc-200 flex flex-col justify-between group">
-                    <div class="aspect-square bg-white overflow-hidden mb-4 border border-zinc-100">
-                        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                    </div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-sm text-black">Q-Ri Sound Heavy Logo T-Shirt</h4>
-                        <p class="text-xs text-zinc-500">Official Label Apparel</p>
-                        <p class="text-xs font-bold text-black pt-2">₩45,000</p>
-                    </div>
-                </div>
-
-                <div class="bg-zinc-50 p-6 border border-zinc-200 flex flex-col justify-between group">
-                    <div class="aspect-square bg-white overflow-hidden mb-4 border border-zinc-100">
-                        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                    </div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-sm text-black">Q-Ri Sound Embroidered Cap</h4>
-                        <p class="text-xs text-zinc-500">Black Vintage Adjustable</p>
-                        <p class="text-xs font-bold text-black pt-2">₩38,000</p>
-                    </div>
-                </div>
-
-                <div class="bg-zinc-50 p-6 border border-zinc-200 flex flex-col justify-between group">
-                    <div class="aspect-square bg-white overflow-hidden mb-4 border border-zinc-100">
-                        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                    </div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-sm text-black">Vinyl Slipmat Set (2 Pack)</h4>
-                        <p class="text-xs text-zinc-500">Turntable Accessories</p>
-                        <p class="text-xs font-bold text-black pt-2">₩28,000</p>
-                    </div>
-                </div>
-
-                <div class="bg-zinc-50 p-6 border border-zinc-200 flex flex-col justify-between group">
-                    <div class="aspect-square bg-white overflow-hidden mb-4 border border-zinc-100">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                    </div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-sm text-black">Q-Ri Sound Leather Record Bag</h4>
-                        <p class="text-xs text-zinc-500">Holds 30 LPs</p>
-                        <p class="text-xs font-bold text-black pt-2">₩110,000</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 6️⃣ RECENT NEWS SECTION -->
-        <section id="news" class="py-16 max-w-[1800px] mx-auto px-6 sm:px-10 border-t border-zinc-100">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-black tracking-tight">Recent News</h2>
-                <button class="px-6 py-2.5 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">All News</button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <div class="space-y-3 group cursor-pointer">
-                    <div class="aspect-[16/10] bg-zinc-100 overflow-hidden border border-zinc-200">
-                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <p class="text-xs text-zinc-400 font-medium">November 3, 2026</p>
-                    <h3 class="text-xl font-bold text-black group-hover:text-brand-orange transition-colors">이도화 x 보화연, 정통 국악-트롯 컬래버레이션 LP 전격 발매</h3>
-                    <p class="text-xs text-zinc-600 leading-relaxed line-clamp-3">
-                        큐리 사운드를 대표하는 두 거장 이도화와 보화연이 만났습니다. 전통 국악의 오케스트레이션과 감성 트롯 발라드의 조합을 담은 한정판 오디오필 바이닐 음반.
-                    </p>
-                    <a href="#" class="inline-block text-xs font-bold text-brand-orange hover:underline">Read More →</a>
-                </div>
-
-                <div class="space-y-3 group cursor-pointer">
-                    <div class="aspect-[16/10] bg-zinc-100 overflow-hidden border border-zinc-200">
-                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <p class="text-xs text-zinc-400 font-medium">October 28, 2026</p>
-                    <h3 class="text-xl font-bold text-black group-hover:text-brand-orange transition-colors">루핀(Lupin), 도쿄 시티팝 라이브 투어 완판 기록</h3>
-                    <p class="text-xs text-zinc-600 leading-relaxed line-clamp-3">
-                        신예 시티팝 뮤지션 루핀의 첫 번째 도쿄 클럽 투어가 티켓 오픈 5분 만에 전석 매진을 기록하며 해외 로컬 팬들의 폭발적인 반응을 이끌어냈습니다.
-                    </p>
-                    <a href="#" class="inline-block text-xs font-bold text-brand-orange hover:underline">Read More →</a>
-                </div>
-
-                <div class="space-y-3 group cursor-pointer">
-                    <div class="aspect-[16/10] bg-zinc-100 overflow-hidden border border-zinc-200">
-                        <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <p class="text-xs text-zinc-400 font-medium">October 15, 2026</p>
-                    <h3 class="text-xl font-bold text-black group-hover:text-brand-orange transition-colors">우화선, 블루스 포크 LP 4종 박스세트 예판 오픈</h3>
-                    <p class="text-xs text-zinc-600 leading-relaxed line-clamp-3">
-                        포크 블루스의 거장 우화선의 일생을 관통하는 아카이브 컬렉션 박스세트가 큐리 사운드 공식 스토어에서 독점 프리오더를 시작했습니다.
-                    </p>
-                    <a href="#" class="inline-block text-xs font-bold text-brand-orange hover:underline">Read More →</a>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 7️⃣ TOURS SECTION (Artist Roster Live Dates) -->
-        <section id="tours" class="py-16 max-w-[1800px] mx-auto px-6 sm:px-10 border-t border-zinc-100">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-black tracking-tight">Tours</h2>
-                <button class="px-6 py-2.5 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">All Tours</button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="artists">
-                
-                <div class="space-y-4">
-                    <div class="aspect-[4/5] bg-zinc-100 overflow-hidden border border-zinc-200">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="이도화" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-black">이도화 (Lee Do-hwa)</h3>
-                        <p class="text-xs font-bold text-zinc-500 mt-1">Seoul, Busan, Daegu, Gwangju • Nov 2026</p>
-                    </div>
-                    <button class="w-full py-3 border border-black text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-colors">View Dates</button>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="aspect-[4/5] bg-zinc-100 overflow-hidden border border-zinc-200">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="보화연" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-black">보화연 (Bo Hwa-yeon)</h3>
-                        <p class="text-xs font-bold text-zinc-500 mt-1">Jeonju, Gyeongju, Seoul • Dec 2026</p>
-                    </div>
-                    <button class="w-full py-3 border border-black text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-colors">View Dates</button>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="aspect-[4/5] bg-zinc-100 overflow-hidden border border-zinc-200">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="화수분" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-black">화수분 (Hwa Soo-bun)</h3>
-                        <p class="text-xs font-bold text-zinc-500 mt-1">Seoul Arts Center • Dec 2026</p>
-                    </div>
-                    <button class="w-full py-3 border border-black text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-colors">View Dates</button>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 8️⃣ NEWSLETTER & FOOTER BAND -->
-        <section class="bg-black text-white py-20 px-6 text-center">
-            <div class="max-w-3xl mx-auto space-y-4">
-                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">Sign up for the Q-Ri Sound newsletter</h2>
-                <p class="text-zinc-400 text-sm font-medium">No Junk. <span class="text-brand-orange font-bold">Just the Good stuff.</span></p>
-                
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-6 max-w-md mx-auto">
-                    <input type="email" placeholder="Your Email Address" class="w-full px-5 py-3 text-xs bg-zinc-900 border border-zinc-800 text-white focus:outline-none focus:border-brand-orange">
-                    <button class="w-full sm:w-auto px-8 py-3 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-orangeHover transition-colors flex-shrink-0">Subscribe</button>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- ================= STORE VIEW TAB (DEDICATED SHOP) ================= -->
-    <div id="storeView" class="max-w-[1800px] mx-auto px-6 sm:px-10 py-12 hidden">
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-200 pb-6 mb-8 gap-4">
-            <div>
-                <span class="text-xs font-mono text-brand-orange uppercase font-bold tracking-widest">Q-RI SOUND DISCOGRAPHY</span>
-                <h1 class="text-4xl sm:text-6xl font-extrabold text-black tracking-tight">STORE</h1>
-            </div>
-            
-            <div class="flex flex-wrap gap-2" id="storeFilters">
-                <button onclick="filterStore('ALL')" class="store-filter active px-4 py-1.5 text-xs font-bold bg-black text-white">ALL</button>
-                <button onclick="filterStore('Vinyl')" class="store-filter px-4 py-1.5 text-xs font-bold bg-zinc-100 text-black border border-zinc-200">VINYL</button>
-                <button onclick="filterStore('CD')" class="store-filter px-4 py-1.5 text-xs font-bold bg-zinc-100 text-black border border-zinc-200">CD / CASSETTE</button>
-                <button onclick="filterStore('Merch')" class="store-filter px-4 py-1.5 text-xs font-bold bg-zinc-100 text-black border border-zinc-200">MERCH</button>
-            </div>
+          <div class="video-container">
+            <iframe id="mainVideoFrame" 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                    title="Q-RI SOUND OFFICIAL MUSIC VIDEO" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+          </div>
         </div>
 
-        <div id="storeGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            <!-- Dynamic Render -->
-        </div>
+      </section>
     </div>
 
-    <!-- ================= FOOTER ================= -->
-    <footer class="bg-black text-white py-16 px-6 sm:px-10 border-t border-zinc-900">
-        <div class="max-w-[1800px] mx-auto flex flex-col lg:flex-row justify-between gap-12">
-            
-            <div class="space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="logo-circle bg-white text-black border-white">
-                        <span>Q-RI</span>
-                    </div>
-                    <span class="font-extrabold text-xl tracking-tight">Q-Ri Sound Records</span>
-                </div>
-                <p class="text-xs text-zinc-400 font-mono">
-                    서울특별시 강남구 아티스트타워 큐리사운드 빌딩<br>
-                    Independent Music Label & Culture Architecture
-                </p>
-                <div class="flex items-center space-x-4 text-zinc-400 text-sm">
-                    <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" class="hover:text-brand-orange"><i class="fa-brands fa-spotify"></i></a>
-                </div>
-            </div>
+    <!-- 🔥 [신규 추가] 스티키 덮어쓰기 완료 후 등장하는 임의의 하단 브랜딩 섹션 -->
+    <section class="next-brand-section">
+      <h2 class="brand-vision-title">QUANTUM MUSIC ENTERTAINMENT</h2>
+      <p class="brand-vision-desc">
+        큐리사운드는 인류의 내면을 밝히는 맑은 소리와 깊은 감성을 음악으로 구현합니다.<br>
+        전 세계 팬들의 영혼을 울리는 9인 보컬 레이블의 대서사시를 지금 바로 확인하십시오.
+      </p>
+    </section>
 
-            <div class="flex flex-wrap gap-12 text-xs font-mono text-zinc-400">
-                <div class="space-y-3">
-                    <span class="text-white font-bold block uppercase">Shop</span>
-                    <a href="#" onclick="switchTab('store')" class="block hover:text-white">Vinyl & CDs</a>
-                    <a href="#" onclick="switchTab('store')" class="block hover:text-white">Merchandise</a>
-                    <a href="#" onclick="switchTab('store')" class="block hover:text-white">Digital Release</a>
-                </div>
-                <div class="space-y-3">
-                    <span class="text-white font-bold block uppercase">Artists</span>
-                    <a href="#" class="block hover:text-white">이도화 (Trot Ballad)</a>
-                    <a href="#" class="block hover:text-white">보화연 (Gukak Trot)</a>
-                    <a href="#" class="block hover:text-white">화수분 / 루핀 / 놀라</a>
-                    <a href="#" class="block hover:text-white">우화선 / 나정이 / 도향 / 도솔미</a>
-                </div>
-                <div class="space-y-3">
-                    <span class="text-white font-bold block uppercase">Company</span>
-                    <a href="#" class="block hover:text-white">About Q-Ri Sound</a>
-                    <a href="#" class="block hover:text-white">Contact Us</a>
-                    <a href="#" class="block hover:text-white">Privacy Policy</a>
-                </div>
-            </div>
+  </main>
 
-        </div>
+  <footer>
+    &copy; 2026 Q-RI SOUND. All Rights Reserved. Quantum Group.
+  </footer>
 
-        <div class="max-w-[1800px] mx-auto pt-12 mt-12 border-t border-zinc-900 text-xs text-zinc-600 font-mono flex justify-between items-center">
-            <p>© 2026 Q-Ri Sound Records. All rights reserved.</p>
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hover:text-white flex items-center gap-1">
-                TOP <i class="fa-solid fa-arrow-up text-[10px]"></i>
-            </button>
-        </div>
-    </footer>
+  <script>
+    const phrases = [
+      "인류의 영혼을 밝히는 맑은 소리, 큐리사운드가 선보이는 빛의 서정시!",
+      "대중성과 독창성을 겸비한 글로벌 보컬 엔터테인먼트의 새로운 기준!"
+    ];
 
-    <!-- ================= FIXED AUDIO PLAYER (Sound Sampler) ================= -->
-    <div class="fixed bottom-0 left-0 right-0 z-50 bg-black text-white px-6 py-3 border-t border-zinc-800">
-        <div class="max-w-[1800px] mx-auto flex items-center justify-between gap-4">
-            
-            <div class="flex items-center gap-4 w-1/3">
-                <img id="playerCover" src="https://images.unsplash.com/photo-1539375665275-f9de415ef9ac?auto=format&fit=crop&w=150&q=80" class="w-10 h-10 object-cover border border-zinc-800 flex-shrink-0">
-                <div class="overflow-hidden">
-                    <div id="playerTitle" class="text-xs font-bold text-white truncate">새벽 달빛 (Moonlight)</div>
-                    <div id="playerArtist" class="text-[10px] font-mono text-zinc-400 truncate">이도화 (Lee Do-hwa)</div>
-                </div>
-            </div>
+    const wrapper = document.getElementById('titleWrapper');
+    let phraseIndex = 0;
 
-            <div class="flex items-center gap-4">
-                <button onclick="prevTrack()" class="text-zinc-400 hover:text-white text-xs"><i class="fa-solid fa-backward-step"></i></button>
-                <button id="playBtn" onclick="togglePlay()" class="w-8 h-8 rounded-full bg-brand-orange text-white flex items-center justify-center hover:bg-brand-orangeHover transition-colors">
-                    <i id="playIcon" class="fa-solid fa-play text-xs"></i>
-                </button>
-                <button onclick="nextTrack()" class="text-zinc-400 hover:text-white text-xs"><i class="fa-solid fa-forward-step"></i></button>
-            </div>
+    function playSubtleWaveLoop() {
+      const currentPhrase = phrases[phraseIndex];
+      wrapper.innerHTML = '';
+      
+      const words = currentPhrase.split(' ');
+      const elements = [];
 
-            <div class="hidden sm:flex items-center justify-end gap-3 w-1/3 text-[10px] font-mono text-zinc-400">
-                <span>QR-AUDIO-2026</span>
-            </div>
+      words.forEach((word, wIdx) => {
+        const wordContainer = document.createElement('span');
+        wordContainer.style.display = 'inline-block';
+        wordContainer.style.whiteSpace = 'nowrap';
 
-        </div>
-    </div>
-
-    <!-- CART MODAL -->
-    <div id="cartModal" class="fixed inset-0 bg-black/60 z-50 flex justify-end transition-opacity opacity-0 pointer-events-none">
-        <div id="cartPanel" class="w-full max-w-md bg-white h-full p-8 flex flex-col justify-between shadow-2xl transform translate-x-full transition-transform duration-300">
-            <div>
-                <div class="flex items-center justify-between border-b border-zinc-200 pb-4">
-                    <h3 class="text-lg font-bold text-black uppercase">Your Bag</h3>
-                    <button onclick="toggleCartModal()" class="text-zinc-500 hover:text-black"><i class="fa-solid fa-xmark text-xl"></i></button>
-                </div>
-                <div id="cartItems" class="py-6 space-y-4 max-h-[60vh] overflow-y-auto">
-                    <p class="text-xs text-zinc-500 font-mono text-center py-8">Your bag is empty.</p>
-                </div>
-            </div>
-
-            <div class="border-t border-zinc-200 pt-6 space-y-4">
-                <div class="flex justify-between font-bold text-sm">
-                    <span>Total</span>
-                    <span id="cartTotal">₩0</span>
-                </div>
-                <button onclick="checkout()" class="w-full py-4 bg-brand-orange text-white font-bold text-xs uppercase tracking-wider hover:bg-brand-orangeHover transition-colors">Proceed to Checkout</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- SCRIPT LOGIC -->
-    <script>
-        const storeCatalog = [
-            { id: 0, title: "새벽 달빛 (Moonlight)", artist: "이도화", category: "Vinyl", price: 38000, cover: "https://images.unsplash.com/photo-1539375665275-f9de415ef9ac?auto=format&fit=crop&w=600&q=80", audio: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" },
-            { id: 1, title: "태평가 (Peace Odes)", artist: "보화연", category: "Vinyl", price: 38000, cover: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=600&q=80", audio: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=smooth-jazz-108740.mp3" },
-            { id: 2, title: "기억의 온도 (Temperature)", artist: "화수분", category: "CD", price: 22000, cover: "https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=600&q=80", audio: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73228.mp3?filename=lofi-hip-hop-110023.mp3" },
-            { id: 3, title: "City Lights & Neon", artist: "루핀", category: "Vinyl", price: 35000, cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80", audio: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2c94314e30.mp3?filename=chillhop-beat-126294.mp3" },
-            { id: 4, title: "Quiet Morning Meditation", artist: "놀라", category: "CD", price: 20000, cover: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=600&q=80", audio: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" },
-            { id: 5, title: "꽃길 타령", artist: "나정이", category: "Vinyl", price: 32000, cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=600&q=80", audio: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=smooth-jazz-108740.mp3" },
-            { id: 6, title: "한오백년 (Classic Folk)", artist: "도향", category: "Vinyl", price: 36000, cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80", audio: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73228.mp3?filename=lofi-hip-hop-110023.mp3" },
-            { id: 7, title: "아리랑 고개 넘어", artist: "도솔미", category: "Vinyl", price: 36000, cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80", audio: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_2c94314e30.mp3?filename=chillhop-beat-126294.mp3" }
-        ];
-
-        let cart = [];
-        let currentTrack = 0;
-        let isPlaying = false;
-        let audioPlayer = new Audio();
-
-        window.onload = () => {
-            renderStore(storeCatalog);
-            loadTrack(0, false);
-        };
-
-        function scrollSlider(id, amount) {
-            const container = document.getElementById(id);
-            container.scrollBy({ left: amount, behavior: 'smooth' });
+        for (let i = 0; i < word.length; i++) {
+          const charSpan = document.createElement('span');
+          charSpan.className = 'char';
+          charSpan.textContent = word.charAt(i);
+          wordContainer.appendChild(charSpan);
+          elements.push(charSpan);
         }
 
-        function switchTab(tab) {
-            const mainView = document.getElementById('mainView');
-            const storeView = document.getElementById('storeView');
+        wrapper.appendChild(wordContainer);
 
-            if (tab === 'main') {
-                mainView.classList.remove('hidden');
-                storeView.classList.add('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else if (tab === 'store') {
-                mainView.classList.add('hidden');
-                storeView.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+        if (wIdx < words.length - 1) {
+          const spaceSpan = document.createElement('span');
+          spaceSpan.className = 'space';
+          wrapper.appendChild(spaceSpan);
         }
+      });
 
-        function scrollToSection(id) {
-            switchTab('main');
-            setTimeout(() => {
-                const el = document.getElementById(id);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
-        }
+      elements.forEach((el, idx) => {
+        setTimeout(() => { el.classList.add('visible'); }, idx * 60);
+      });
 
-        function renderStore(items) {
-            const grid = document.getElementById('storeGrid');
-            grid.innerHTML = '';
-            items.forEach((item) => {
-                const card = document.createElement('div');
-                card.className = "bg-zinc-50 border border-zinc-200 p-6 flex flex-col justify-between group";
-                card.innerHTML = `
-                    <div>
-                        <div class="relative aspect-square overflow-hidden mb-4 border border-zinc-200">
-                            <img src="${item.cover}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <span class="text-[10px] font-mono font-bold text-brand-orange uppercase">${item.category}</span>
-                        <h3 class="font-bold text-base text-black group-hover:text-brand-orange transition-colors">${item.title}</h3>
-                        <p class="text-xs text-zinc-500">${item.artist}</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-zinc-200 flex items-center justify-between">
-                        <span class="font-bold text-sm text-black">₩${item.price.toLocaleString()}</span>
-                        <button onclick="addToCart('${item.title}', ${item.price})" class="px-3 py-1.5 bg-black text-white text-[10px] font-bold uppercase tracking-wider hover:bg-brand-orange transition-colors">+ Bag</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
+      const totalAppearTime = elements.length * 60 + 1600;
+      setTimeout(() => {
+        elements.forEach((el, idx) => {
+          setTimeout(() => {
+            el.classList.remove('visible');
+            el.classList.add('wave-dissolve');
+          }, idx * 25);
+        });
 
-        function filterStore(cat) {
-            document.querySelectorAll('.store-filter').forEach(btn => {
-                btn.className = "store-filter px-4 py-1.5 text-xs font-bold bg-zinc-100 text-black border border-zinc-200";
-            });
-            event.target.className = "store-filter active px-4 py-1.5 text-xs font-bold bg-black text-white";
+        setTimeout(() => {
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          playSubtleWaveLoop();
+        }, elements.length * 25 + 400);
+      }, totalAppearTime);
+    }
 
-            if (cat === 'ALL') renderStore(storeCatalog);
-            else renderStore(storeCatalog.filter(i => i.category.toLowerCase() === cat.toLowerCase()));
-        }
+    const slides = document.querySelectorAll('.editorial-slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentSlide = 0;
+    let autoSlideInterval;
 
-        // Sound Sampler
-        function loadTrack(idx, autoplay = true) {
-            currentTrack = idx;
-            const t = storeCatalog[idx];
-            audioPlayer.src = t.audio;
-            document.getElementById('playerTitle').innerText = t.title;
-            document.getElementById('playerArtist').innerText = t.artist;
-            document.getElementById('playerCover').src = t.cover;
+    function goToSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (index + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
 
-            if (autoplay) {
-                audioPlayer.play();
-                isPlaying = true;
-                updatePlayIcon();
-            }
-        }
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => { goToSlide(currentSlide + 1); }, 5000);
+    }
 
-        function togglePlay() {
-            if (isPlaying) { audioPlayer.pause(); isPlaying = false; }
-            else { audioPlayer.play(); isPlaying = true; }
-            updatePlayIcon();
-        }
+    function resetAutoSlide() {
+      clearInterval(autoSlideInterval);
+      startAutoSlide();
+    }
 
-        function updatePlayIcon() {
-            document.getElementById('playIcon').className = isPlaying ? "fa-solid fa-pause text-xs" : "fa-solid fa-play text-xs";
-        }
+    nextBtn.addEventListener('click', () => { goToSlide(currentSlide + 1); resetAutoSlide(); });
+    prevBtn.addEventListener('click', () => { goToSlide(currentSlide - 1); resetAutoSlide(); });
 
-        function playTrack(idx) { loadTrack(idx, true); }
-        function prevTrack() { currentTrack = (currentTrack - 1 + storeCatalog.length) % storeCatalog.length; loadTrack(currentTrack, true); }
-        function nextTrack() { currentTrack = (currentTrack + 1) % storeCatalog.length; loadTrack(currentTrack, true); }
+    /* 마우스 추적 3D 둥글둥글 기울임 모션 스크립트 */
+    const cards = document.querySelectorAll('.artist-card-oval');
 
-        // Cart
-        function toggleCartModal() {
-            const modal = document.getElementById('cartModal');
-            const panel = document.getElementById('cartPanel');
-            if (modal.classList.contains('pointer-events-none')) {
-                modal.classList.remove('pointer-events-none', 'opacity-0');
-                panel.classList.remove('translate-x-full');
-            } else {
-                modal.classList.add('pointer-events-none', 'opacity-0');
-                panel.classList.add('translate-x-full');
-            }
-        }
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = -((y - centerY) / centerY) * 16;
+        const rotateY = ((x - centerX) / centerX) * 16;
 
-        function addToCart(title, price) {
-            cart.push({ title, price });
-            updateCartUI();
-            toggleCartModal();
-        }
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+      });
 
-        function updateCartUI() {
-            const badge = document.getElementById('cartBadge');
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+      });
+    });
 
-            badge.innerText = cart.length;
-            if (cart.length > 0) badge.classList.remove('hidden');
-            else badge.classList.add('hidden');
+    /* 멀티 트랙 음원 제어 스크립트 */
+    const trackPlaylist = [
+      { title: "Track 01. 큐리사운드 대표 컬렉션 믹스", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+      { title: "Track 02. 이도화 - 독보청천", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+      { title: "Track 03. 보화연 & 화수분 - 동양의 울림", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
+    ];
 
-            if (cart.length === 0) {
-                container.innerHTML = `<p class="text-xs text-zinc-500 font-mono text-center py-8">Your bag is empty.</p>`;
-                totalEl.innerText = '₩0';
-                return;
-            }
+    const audioPlayer = document.getElementById('mainAudioPlayer');
+    const audioSource = document.getElementById('audioSource');
+    const trackSelect = document.getElementById('trackSelect');
+    const prevTrackBtn = document.getElementById('prevTrackBtn');
+    const nextTrackBtn = document.getElementById('nextTrackBtn');
 
-            let sum = 0;
-            container.innerHTML = '';
-            cart.forEach((item, index) => {
-                sum += item.price;
-                const row = document.createElement('div');
-                row.className = "flex items-center justify-between bg-zinc-50 p-3 border border-zinc-200";
-                row.innerHTML = `
-                    <div>
-                        <div class="text-xs font-bold text-black uppercase">${item.title}</div>
-                        <div class="text-xs text-zinc-500 font-mono">₩${item.price.toLocaleString()}</div>
-                    </div>
-                    <button onclick="removeFromCart(${index})" class="text-zinc-400 hover:text-black"><i class="fa-solid fa-xmark"></i></button>
-                `;
-                container.appendChild(row);
-            });
-            totalEl.innerText = `₩${sum.toLocaleString()}`;
-        }
+    function changeTrack(index, shouldPlay = true) {
+      trackSelect.value = index;
+      audioSource.src = trackPlaylist[index].src;
+      audioPlayer.load();
+      if (shouldPlay) audioPlayer.play().catch(e => console.log(e));
+    }
 
-        function removeFromCart(idx) { cart.splice(idx, 1); updateCartUI(); }
-        function checkout() { alert('Thank you for ordering from Q-Ri Sound Records.'); cart = []; updateCartUI(); toggleCartModal(); }
-        function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
-    </script>
+    trackSelect.addEventListener('change', (e) => changeTrack(parseInt(e.target.value)));
+    prevTrackBtn.addEventListener('click', () => {
+      let nextIndex = parseInt(trackSelect.value) - 1;
+      if (nextIndex < 0) nextIndex = trackPlaylist.length - 1;
+      changeTrack(nextIndex);
+    });
+    nextTrackBtn.addEventListener('click', () => {
+      let nextIndex = parseInt(trackSelect.value) + 1;
+      if (nextIndex >= trackPlaylist.length) nextIndex = 0;
+      changeTrack(nextIndex);
+    });
+
+    /* 9개 아티스트 공식 앨범 커버 데이터 및 랜더링 스크립트 */
+    const albumData = [
+      { title: "독보청천", artist: "이도화", img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" },
+      { title: "동양의 소리", artist: "보화연", img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=400&q=80" },
+      { title: "기적의 사운드", artist: "화수분", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" },
+      { title: "감각의 비트", artist: "루핀", img: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80" },
+      { title: "에너지 리듬", artist: "놀라", img: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=400&q=80" },
+      { title: "엠비언트 웨이브", artist: "우화선", img: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=400&q=80" },
+      { title: "바람의 서정시", artist: "나정이", img: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=400&q=80" },
+      { title: "어쿠스틱 선율", artist: "도향", img: "https://images.unsplash.com/photo-1445985543468-b4216924436b?auto=format&fit=crop&w=400&q=80" },
+      { title: "마스터링 보컬", artist: "도솔미", img: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=400&q=80" }
+    ];
+
+    const albumTrackList = document.getElementById('albumTrackList');
+    const albumSliderWrapper = document.getElementById('albumSliderWrapper');
+    const slideLeftBtn = document.getElementById('slideLeftBtn');
+    const slideRightBtn = document.getElementById('slideRightBtn');
+    const shuffleAlbumsBtn = document.getElementById('shuffleAlbumsBtn');
+
+    function renderAlbums(list) {
+      albumTrackList.innerHTML = '';
+      list.forEach(album => {
+        const card = document.createElement('div');
+        card.className = 'album-card';
+        card.innerHTML = `
+          <img src="${album.img}" alt="${album.title}" class="album-cover-img">
+          <div class="album-card-title">${album.title}</div>
+          <div class="album-card-artist">${album.artist}</div>
+        `;
+        albumTrackList.appendChild(card);
+      });
+    }
+
+    slideLeftBtn.addEventListener('click', () => {
+      albumSliderWrapper.scrollBy({ left: -360, behavior: 'smooth' });
+    });
+
+    slideRightBtn.addEventListener('click', () => {
+      albumSliderWrapper.scrollBy({ left: 360, behavior: 'smooth' });
+    });
+
+    shuffleAlbumsBtn.addEventListener('click', () => {
+      const shuffled = [...albumData].sort(() => Math.random() - 0.5);
+      renderAlbums(shuffled);
+    });
+
+    /* 멀티 비디오 제어 스크립트 */
+    const videoPlaylist = [
+      { title: "M/V 01. 이도화 - 독보청천 Official M/V", embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+      { title: "M/V 02. 보화연 - 국악 퓨전 오프닝 비주얼", embedUrl: "https://www.youtube.com/embed/L_LUpnjgPso" },
+      { title: "M/V 03. 큐리사운드 레이블 브랜드 필름", embedUrl: "https://www.youtube.com/embed/3JZ_D3ELwOQ" }
+    ];
+
+    const mainVideoFrame = document.getElementById('mainVideoFrame');
+    const videoSelect = document.getElementById('videoSelect');
+    const prevVideoBtn = document.getElementById('prevVideoBtn');
+    const nextVideoBtn = document.getElementById('nextVideoBtn');
+
+    function changeVideo(index) {
+      videoSelect.value = index;
+      mainVideoFrame.src = videoPlaylist[index].embedUrl;
+    }
+
+    videoSelect.addEventListener('change', (e) => changeVideo(parseInt(e.target.value)));
+    prevVideoBtn.addEventListener('click', () => {
+      let nextIndex = parseInt(videoSelect.value) - 1;
+      if (nextIndex < 0) nextIndex = videoPlaylist.length - 1;
+      changeVideo(nextIndex);
+    });
+    nextVideoBtn.addEventListener('click', () => {
+      let nextIndex = parseInt(videoSelect.value) + 1;
+      if (nextIndex >= videoPlaylist.length) nextIndex = 0;
+      changeVideo(nextIndex);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      playSubtleWaveLoop();
+      startAutoSlide();
+      renderAlbums(albumData);
+    });
+  </script>
 </body>
 </html>
